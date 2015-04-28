@@ -1,0 +1,53 @@
+public class JuhuslikMaatriks {
+
+		private int veergudeArv;
+		private int ridadeArv;
+		private int alamNumber;
+		private int ülemnumber;
+		
+		public JuhuslikMaatriks(int veergudeArv, int ridadeArv, int alamNumber,
+				int ülemnumber) {
+			super();
+			this.veergudeArv = veergudeArv;
+			this.ridadeArv = ridadeArv;
+			this.alamNumber = alamNumber;
+			this.ülemnumber = ülemnumber;
+		}
+
+		public int getVeergudeArv() {
+			return veergudeArv;
+		}
+
+		public void setVeergudeArv(int veergudeArv) {
+			this.veergudeArv = veergudeArv;
+		}
+
+		public int getRidadeArv() {
+			return ridadeArv;
+		}
+
+		public void setRidadeArv(int ridadeArv) {
+			this.ridadeArv = ridadeArv;
+		}
+
+		public int getAlamNumber() {
+			return alamNumber;
+		}
+
+		public void setAlamNumber(int alamNumber) {
+			this.alamNumber = alamNumber;
+		}
+
+		public int getÜlemnumber() {
+			return ülemnumber;
+		}
+
+		public void setÜlemnumber(int ülemnumber) {
+			this.ülemnumber = ülemnumber;
+		}
+		//maatriksi genereerimine
+		public int[][] maatriks(){
+			int juhMaatriks[][]= new int[ridadeArv][veergudeArv];
+			for ( int a = 0 ; a < ridadeArv ; a++ )
+		         for (int b = 0 ; b < veergudeArv ; b++ )
+		            juhMaatriks[a][b] = (int) Math.round(Math.random()*(ülemnumber-alamNumber)+ alamNumber);
