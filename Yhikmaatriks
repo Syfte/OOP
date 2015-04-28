@@ -1,0 +1,42 @@
+import java.util.Arrays;
+
+
+public class Yhikmaatriks {
+	
+	int[][] my;
+
+	public Yhikmaatriks(int[][] my) {
+		super();
+		this.my = my;
+	}
+
+	public Yhikmaatriks() {
+		super();
+	}
+
+	public int[][] getMy() {
+		return my;
+	}
+
+	public void setMy(int[][] my) {
+		this.my = my;
+	}
+	
+	@Override
+	public String toString() {
+		return "Yhikmaatriks [my=" + Arrays.toString(my) + "]";
+	}
+
+	public String OnYhikmaatriks(){
+		for(int l=0; 0<my.length; l++){
+			for(int s=0; 0<my.length; s++){
+				if((l==s && my[l][s]!=1) || (l!=s && my[l][s]!=0)){
+					return "See ei ole ühikmaatriks";
+				}
+			}
+		}
+		return "See on ühikmaatriks";
+	}
+	
+
+}
