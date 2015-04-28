@@ -1,0 +1,41 @@
+import java.util.Arrays;
+
+
+public class Nullmaatriks {
+
+	int[][] mn;
+
+	public Nullmaatriks(int[][] mn) {
+		super();
+		this.mn = mn;
+	}
+
+	public Nullmaatriks() {
+		super();
+	}
+
+	public int[][] getMn() {
+		return mn;
+	}
+
+	public void setMn(int[][] mn) {
+		this.mn = mn;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "Nullmaatriks [mn=" + Arrays.toString(mn) + "]";
+	}
+
+	public String OnNullmaatriks(){
+		for(int i=0; 0<mn.length; i++){ //vaatab järjest läbi kas kõik elemendid on nullid
+			for(int l=0; 0<mn.length; l++){
+				if(mn[i][l]!=0){
+					return "See ei ole nullmaatriks";
+				}
+			}
+		}
+		return "See on nullmaatriks";
+	}
+}
