@@ -1,0 +1,130 @@
+
+import java.util.Scanner;
+
+
+public class MaatriksiKodu1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		Scanner sisend= new Scanner(System.in);
+		//1
+		//küsi, mida teha: liitmine (1), lahutamine (2), rea korrutamine mingi arvuga (3), 
+		//maatriksite korrutamine(4), determinandi leidmine(5);
+		int operatsioon=0; 
+		while(operatsioon!=6) { //teeb niikaua kuni sisestatakse nr 6
+		System.out.println("Palun sisestada soovitava operatsiooni number kui: liitmine (1), lahutamine (2),");
+		System.out.println(" rea korrutamine mingi arvuga (3),maatriksite korrutamine(4),"
+				+ "juhusliku ruutmaatriksi genereerimiseks (5), väljumiseks (6), ");
+		operatsioon= sisend.nextInt();
+		//2
+		if (operatsioon== 6){
+			break; // kui sisestatakse 6, siis lõpetab tegevuse
+		}
+		else if (operatsioon==5){
+	    	System.out.println("Palun sisestada maatriksi ridade arv: ");
+			int uueridadeArv= sisend.nextInt();
+			//int uueveergudeArv= sisend.nextInt();
+			System.out.println("Palun sisestada maatriksi väikseim arv ning suurim arv: ");
+			int vaikseimArv= sisend.nextInt();
+			int suurimArv= sisend.nextInt();
+			JuhuslikMaatriks e = new JuhuslikMaatriks(uueridadeArv,uueridadeArv, vaikseimArv, suurimArv);
+			
+			int [] [] mat=e.maatriks();
+			for (int i=0; i< uueridadeArv; i++){
+				System.out.println();
+				for (int j=0; j < uueridadeArv; j++){
+					System.out.print(mat[i][j]+ "\t");
+					
+				}
+			}
+			break;
+	    }  
+		//Palu kasutajal sisestada maatriksi ridade arv ja veergude arv
+		System.out.println("Palun sisestada maatriksi ridade arv ning veergude arv: ");
+		int ridadeArv= sisend.nextInt();
+		int veergudeArv= sisend.nextInt();
+		//3
+		//loo listid: kus hoida esimest maatriksit, teist maatriksit ning uut maatriksit
+		int esimeneMaatriks[][] = new int[ridadeArv][veergudeArv];
+	    int teineMaatriks[][] = new int[ridadeArv][veergudeArv];
+	    int uusMaatriks[][] = new int[ridadeArv][veergudeArv];
+		//4
+		//Võta sisse kasutaja maatriksid 
+		System.out.println("Sisesta esimene maatriks: ");
+		 
+	      for ( int a = 0 ; a < ridadeArv ; a++ )
+	         for (int b = 0 ; b < veergudeArv ; b++ )
+	            esimeneMaatriks[a][b] = sisend.nextInt();
+	     if (operatsioon==1 || operatsioon==2 || operatsioon==4){
+	      
+	    System.out.println("Sisesta teine maatriks: ");
+			 
+	      for ( int a = 0 ; a < ridadeArv ; a++ )
+	         for (int b = 0 ; b < veergudeArv ; b++ )
+	            teineMaatriks[a][b] = sisend.nextInt();  
+	     }
+		
+		//6
+		//loo eraldi meetodid tehete jaoks (5)
+	    if (operatsioon==1){
+	    	//liitmine
+	    	for (int c = 0 ; c < ridadeArv ; c++ )
+		         for (int d = 0 ; d < veergudeArv ; d++ )
+		             uusMaatriks[c][d] = esimeneMaatriks[c][d] + teineMaatriks[c][d];
+	    }   
+	    else if (operatsioon== 2){
+	    	//lahutamine
+	    	for (int c = 0 ; c < ridadeArv ; c++ )
+		         for (int d = 0 ; d < veergudeArv ; d++ )
+		             uusMaatriks[c][d] = esimeneMaatriks[c][d] - teineMaatriks[c][d];
+	    }
+	    else if (operatsioon== 3){
+	    	// maatriksi read korrutamine mingi arvuga
+	    	System.out.println("Mis arvuga soovite korrutada?");
+			int korrutusarv= sisend.nextInt();
+	    	for (int c = 0 ; c < ridadeArv ; c++ ) 
+		         for (int d = 0 ; d < veergudeArv ; d++ )
+		             uusMaatriks[c][d] = esimeneMaatriks[c][d] *korrutusarv;// korda see arv
+	    }
+	    else if (operatsioon== 4){
+	    	// maatriksite korrutamine
+	    	
+	    	for (int c = 0 ; c < ridadeArv ; c++ ) {
+		         for (int d = 0 ; d < veergudeArv ; d++ )
+		        	 for (int k = 0 ; k < veergudeArv ; k++ )
+		             uusMaatriks[c][d] += esimeneMaatriks[c][k]* teineMaatriks[k][d];
+	    	}    
+		      
+	    }
+	    //else if (operatsioon == 5){
+	    	//determinant
+	    //}
+	    	
+	      
+		
+		
+		//7
+		//tagasta tehe ja vastus
+	     
+	    System.out.println("Tehte vastus: ");
+	    for (int c = 0 ; c < ridadeArv ; c++ ){
+	         for (int d = 0 ; d < veergudeArv ; d++ )
+	            System.out.print(uusMaatriks[c][d]+"\t");
+	 
+	         System.out.println();
+		
+	}
+	    Yhikmaatriks f= new Yhikmaatriks();
+	    f.setMy(uusMaatriks);
+	    System.out.println(f.OnYhikmaatriks());
+	    
+	    Nullmaatriks a=new Nullmaatriks(uusMaatriks);
+	    System.out.println(a.OnNullmaatriks());
+		}
+
+		
+}
+}
+
+
