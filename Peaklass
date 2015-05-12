@@ -1,0 +1,139 @@
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+
+//import application.Baastehted;
+import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
+
+
+public class Peaklass extends Application {
+	Stage aken;
+	Scene avaaken,teheteaken, viimaneVastus;
+	public static void main(String[] args){
+		launch(args);
+	}
+	
+	
+	
+	public BorderPane teheteLeht(){
+		BorderPane piir = new BorderPane();
+		GridPane grid3= new GridPane();
+		Label silt3= new Label("Vali tehe:");
+		silt3.setFont(Font.font("Arial",FontWeight.BOLD,30));
+		
+		ToggleButton liitmine= new ToggleButton("Liitmine");
+		ToggleButton lahutamine= new ToggleButton("Lahutamine");
+		ToggleButton arvuga= new ToggleButton("Arvuga korrutamine");
+		liitmine.setPrefSize(150, 50);
+		lahutamine.setPrefSize(150, 50);
+		arvuga.setPrefSize(150, 50);
+		
+		
+		//nüüd teha valmis need aknad!
+		Tehted t= new Tehted();
+		//nupp2.setOnAction(e -> aken.setScene(new Scene(teheteLeht(), 600,600)));
+		liitmine.setOnMouseClicked(event ->aken.setScene(new Scene(t.mootmeteTagastus(),600,600 )));
+		//lahutamine.setOnMouseClicked(event-> lahutamine());
+		//arvuga.setOnMouseClicked(event -> arvuga());
+		
+		//Baastehted k1 = new Baastehted();
+		
+	
+		grid3.add(silt3, 1,2);
+		grid3.add(liitmine, 1, 10);
+		grid3.add(lahutamine, 1, 20);
+		grid3.add(arvuga, 1, 30);
+		//piir.setBottom(lisaAnkur(grid3)); //ankruna "avalehele" nupu lisamine
+		
+		
+		piir.setLeft(grid3);
+		return piir;
+		//teheteaken= new Scene(piir, 600,600);
+	}
+	
+	public GridPane vastuseLeht(){
+		Label silt1= new Label("Viimane vastus");
+		silt1.setFont(Font.font("Arial", FontWeight.BOLD, 30));
+		int[][] vastus = null;
+		int veerud=0;
+		int read=0;
+		try {
+			ObjectInputStream sisse=new ObjectInputStream(
+						new FileInputStream("vastus.txt"));
+			read= (int) sisse.readObject();
+			veerud= (int) sisse.readObject();
+			vastus= new int[read][veerud];
+			vastus= (int[][]) sisse.readObject();
+			sisse.close();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		} 
+		
+		//annab maatriksi
+		GridPane lo= new GridPane();
+		lo.setPadding(new Insets(10,10,10,10));
+		lo.setVgap(8);
+		lo.setHgap(10);
+		lo.add(silt1, 1,1);
+		//lisame siis maatriksi
+		for (int h= 0; h< veerud;h++){
+			for (int g=0; g< read; g++){
+				Label l= new Label(" "+vastus[h][g]);
+				lo.add(l, h+5, g+3);
+		}}
+		return lo;
+	}
+	
+	public GridPane esimeneLeht(){
+		Label silt1= new Label("Tehted maatriksitega");
+		silt1.setFont(Font.font("Arial", FontWeight.BOLD, 30));
+
+		ToggleButton nupp2= new ToggleButton("Tehted");
+		ToggleButton nupp3= new ToggleButton("Viimane vastus");
+
+		nupp2.setPrefSize(150, 50);
+		nupp3.setPrefSize(150, 50);
+
+		nupp2.setStyle("-fx-base: lightgreen");
+		nupp3.setStyle("-fx-base: lightgreen");
+		
+		//teisele aknale üleminek	
+		
+		nupp2.setOnAction(e -> aken.setScene(new Scene(teheteLeht(), 600,600)));
+		//nupp3.setOnAction(e -> aken.setScene(viimaneVastus));
+		nupp3.setOnAction(e-> aken.setScene(new Scene(vastuseLeht(),600,600)));
+		
+		GridPane lo= new GridPane();
+		lo.setPadding(new Insets(10,10,10,10));
+		lo.setVgap(8);
+		lo.setHgap(10);
+		lo.add(silt1, 1,1);
+		lo.add(nupp2, 1,4);
+		lo.add(nupp3, 1,5);
+		
+		return lo;
+	}
+	public void start(Stage primaryStage ) throws Exception{
+		aken= primaryStage;
+		//esimene leht
+		
+		avaaken= new Scene(esimeneLeht(), 600,600);
+		
+		aken.setScene(avaaken);
+		aken.setTitle("OOP-i rühmatöö");
+		aken.show();
+		
+	}
+}
