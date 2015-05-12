@@ -48,6 +48,20 @@ public class Baastehted extends Peaklass2{
 		public void setVeerud(int veerud) {
 			this.veerud = veerud;
 		}
+		public void kasOnArv(String a)throws ArvuErind{  //saab stringi ja kontrollib kas mõni täht sisaldub seal
+			ArrayList<String> tahed=new ArrayList<String>();
+			//tahed.addAll(Array.asList('a','b'));
+			Collections.addAll(tahed,"a","b","c","d","e","f","g","h","i","j",
+					"k","l","m","n","o","p","q","r","s","t","u","v","w","õ","ä",
+					"ö","ü","x","y","z");
+			for (String el: tahed){
+				if (a.contains(el)){
+					throw new ArvuErind("Sisestati mitte arv, muutke täht arvuks");
+				
+				}
+			}
+		}
+		
 
 		
 		public int[][] loeVastus(int r_arv, int v_arv){
